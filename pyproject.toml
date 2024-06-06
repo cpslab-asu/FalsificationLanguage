@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "falsi-lang"
+version = "0.1.0"
+description = ""
+authors = ["daittan <tanmay.khandait@gmail.com>"]
+readme = "README.md"
+packages = [{include = "falsi_lang"}]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.11"
+psy-taliro = {version = "1.0.0b9", extras = ["rtamt"]}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
