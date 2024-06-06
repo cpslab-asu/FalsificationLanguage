@@ -11,3 +11,17 @@ After you've installed poetry, you can install partx by running the following co
 poetry install
 ```
 
+# What to look at?
+
+1) `falsi_lang.new_monitor.Requirement` : 
+    
+    - Implemented the abstract class `staliro.core.Specification` from `psy-taliro` package
+    - Refer to [https://sbtg.gitlab.io/psy-taliro/specifications.html#specification](https://sbtg.gitlab.io/psy-taliro/specifications.html#specification)
+        - I have followed the same structure - `falsi_lang.new_monitor.Requirement.evalute` takes in two inputs: states and times and return the robustness values.
+
+2) To run the demo: 
+
+    ```
+        cd demos
+        poetry run python test_monitor.py
+    ```
