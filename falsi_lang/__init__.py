@@ -1,3 +1,3 @@
-from .new_monitor import Requirement as ComponentWiseRequirement
+from .new_monitor import Requirement as SpecLangMonitor
 
-__all__ = ["ComponentWiseRequirement"]
+__all__ = ["SpecLangMonitor"]

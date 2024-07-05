@@ -11,7 +11,7 @@ from staliro.options import Options
 from staliro.staliro import simulate_model
 from staliro.core.model import ExtraResult
 
-from falsi_lang import ComponentWiseRequirement
+from falsi_lang import SpecLangMonitor
 
 # Define the ODE model
 @ode()
@@ -32,42 +32,27 @@ bounds = options.static_parameters
 rng = np.random.default_rng(12345)
 sample = np.array(Sample([rng.uniform(bound.lower, bound.upper) for bound in bounds]).values)
 
-# Simulate the model
+# # Simulate the model
 result = simulate_model(nonlinear_model, options, sample)
 
 
-# Plot the signals
-fig, ax1 = plt.subplots(1)
-ax1.plot(result.trace.times, result.trace.states[0], label = r"$\dot{x_1}$")
-ax1.plot(result.trace.times, result.trace.states[1], label = r"$\dot{x_2}$")
-ax1.set_xlabel("Times")
-plt.legend()
-plt.show()
-
-# Define the different requirements and put them in a list
-phi_1 = "always !(x_dot_1 >= -1.6 and x_dot_1 <= -1.4  and x_dot_2 >= -1.1 and x_dot_2 <= -0.9)"
-phi_2 = "always !(x_dot_1 >= -1.3 and x_dot_1 <= -1.3  and x_dot_2 >= -1.2 and x_dot_2 <= -0.2)"
-phi_3 = "eventually !(x_dot_1 >= -1.6 and x_dot_1 <= -1.4  and x_dot_2 >= -1.1 and x_dot_2 <= -0.9)"
-phi_4 = "eventually !(x_dot_1 >= -1.3 and x_dot_1 <= -1.3  and x_dot_2 >= -1.2 and x_dot_2 <= -0.2)"
-phi_list = [phi_1, phi_2, phi_3, phi_4]
-
-# Map the predicates in the singals to inputs and outputs. 
-# x_dot_1 depends on 0th and 1st input - hence first value of tuple is [0,1]
-# x_dot_1 is 0th index singal in the output - hence second value of tuple is 0
-# x_dot_2 depends on 0th and 1st input - hence first value of tuple is [0,1]
-# x_dot_2 is 1st index singal in the output - hence second value of tuple is 1
-predicate_map = {"x_dot_1": ([0,1], 0), "x_dot_2": ([0,1], 1)}
+# # Plot the signals
+# fig, ax1 = plt.subplots(1)
+# ax1.plot(result.trace.times, result.trace.states[0], label = r"$\dot{x_1}$")
+# ax1.plot(result.trace.times, result.trace.states[1], label = r"$\dot{x_2}$")
+# ax1.set_xlabel("Times")
+# plt.legend()
+# plt.show()
 
 # Initialize the Monitor
 
-input_dimensionality = 2
-specification = ComponentWiseRequirement(
-                    tf_dim=input_dimensionality, 
-                    component_list=phi_list,
-                    predicate_mapping=predicate_map
-                )
+phi = r"(always[1,2] (eventually[3,4] (x1 >= 3 and x1 <= 10)) -> (x1 >= 0 and x1 <= 10)) and (always (x1 >= -20 and x1 <= 20))"
+pred_map = {"x1":0}
+bound = [[-20,20],[-20,20],[-20,20]]
+rob_monitor = SpecLangMonitor(specification=phi, predicate_mapping=pred_map, initialBoxes= bound)
+
 
 # Monitor the generated signal
-monitored_value = specification.evaluate(result.trace.states, result.trace.times)
+monitored_value = rob_monitor.evaluate(result.trace.states, result.trace.times)
 
 print(monitored_value)
