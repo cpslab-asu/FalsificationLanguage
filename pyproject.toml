@@ -10,7 +10,8 @@ packages = [{include = "falsi_lang"}]
 python = ">=3.9,<3.11"
 psy-taliro = {version = "1.0.0b9", extras = ["rtamt"]}
 plotly = "^5.22.0"
-
+aerobench = {git = "https://github.com/qthibeault/aerobenchvvpython.git"}
+bo = {git="git@github.com:DaitTan/BOWrapper.git", rev = "8cd049f"}
 
 [build-system]
 requires = ["poetry-core"]
