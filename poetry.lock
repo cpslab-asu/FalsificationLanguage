@@ -72,8 +72,10 @@ tqdm = "^4.66.2"
 treelib = "^1.6.1"
 
 [package.source]
-type = "directory"
-url = "../bo"
+type = "git"
+url = "git@github.com:DaitTan/BOWrapper.git"
+reference = "8cd049f"
+resolved_reference = "8cd049fc64a2408ecabebd0c4a46203e9999f2b3"
 
 [[package]]
 name = "colorama"
@@ -1135,4 +1137,4 @@ test = ["big-O", "importlib-resources", "jaraco.functools", "jaraco.itertools", 
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.11"
-content-hash = "1e1fe1b38634cb0b8661758591234197321c2eb740112edc4991889a874d7772"
+content-hash = "1f2355ce1b6ffd7a74de963ec357d411e41ee4a4af6463559c713c63f2bb02c6"
