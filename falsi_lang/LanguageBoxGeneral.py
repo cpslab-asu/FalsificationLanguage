@@ -684,7 +684,7 @@ def FindBox(n,Box, d1_function, d2_function):
     # Ex.Boxes = [B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17]
 
     start = timer()
-    Sam =  sample(ALL, 50000)
+    Sam =  sample(ALL, 1000)
     end = timer()
     print("sample Time:", end - start)
 

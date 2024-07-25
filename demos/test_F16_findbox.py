@@ -82,7 +82,7 @@ F16_PARAM_MAP = OrderedDict({
 
 phi = r"always[0,15] (alt>=0) and always[0,15] (alt<2350)"
 pred_map = {"alt":0}
-bound = [[-2350, 2350]]
+bound = [[-2350, 2350]*15]
 rob_monitor = SpecLangMonitor(specification=phi, predicate_mapping=pred_map, initialBoxes= bound)
 
 
@@ -96,7 +96,7 @@ initial_conditions = [
     (-math.pi / 4) + np.array((-math.pi / 8, math.pi / 8)),
 ]
 
-options = Options(runs=10, iterations=300, interval=(0, 15), static_parameters=initial_conditions)
+options = Options(runs=1, iterations=300, interval=(0, 15), static_parameters=initial_conditions)
 
 f16_model = F16Model(F16_PARAM_MAP)
 
