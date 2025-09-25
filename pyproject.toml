@@ -1,0 +1,91 @@
+[project]
+name = "falslang"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Tanmay Khandait",email = "tkhandai@asu.edu"}
+]
+readme = "README.md"
+requires-python = ">=3.10, <3.11"
+dependencies = [
+    "bo @ git+https://github.com/DaitTan/BOWrapper@81945d420f064e0387bef011c79492734387ec41",
+    "matplotlib==3.10.1",
+    "numpy==1.26.4",
+    "pandas==1.5.3",
+    "psy-taliro==1.0.0",
+    "rtamt==0.3.5",
+    "scikit-learn==1.6.1",
+    "scikit-optimize==0.9.0",
+    "scipy==1.15.2",
+    "tqdm==4.67.1",
+    "pytest-cov (>=7.0.0,<8.0.0)",
+    "dask (>=2025.9.0,<2026.0.0)",
+    "distributed (>=2025.9.0,<2026.0.0)",
+    "msgpack==1.1.1",
+    "tornado==6.5.2",
+    "bokeh (>=3.8.0,<4.0.0)",
+    "ray (==2.49.2)",
+    "matlabengine (==24.1.4)",
+]
+
+[tool.poetry]
+packages = [{include = "falslang", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.14.1"
+ruff = "^0.9.3"
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^5.3.0"
+
+[tool.poetry.group.demos.dependencies]
+matplotlib = "^3.5.2"
+
+[tool.poe.tasks.test]
+cmd = "pytest tests"
+
+[tool.poe.tasks.lint]
+cmd = "ruff check ${FILES}"
+args = [
+    { name = "FILES", positional = true, default = "src tests demos" }
+]
+
+[tool.poe.tasks.typecheck]
+cmd = "mypy --pretty ${FILES}"
+args = [
+    { name = "FILES", positional = true, default = "src tests demos" }
+]
+
+[tool.poe.tasks.check]
+sequence = ["typecheck", "lint"]
+
+[tool.ruff]
+line-length = 100
+indent-width = 4
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint]
+select = [
+    "E4", "E7", "E9", "F", "C90",
+    "A", "B", "I", "UP", "C4",
+    "PYI", "RET501", "RET502", "RET504",
+    "N8", "TD", "FBT", "SIM", "PTH",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["hyperpartx"]
+split-on-trailing-comma = false
+
+[tool.ruff.lint.per-file-ignores]
