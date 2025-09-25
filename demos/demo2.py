@@ -82,6 +82,7 @@ opts = TestOptions(
             "throttle": SignalInput(control_points=[(0, 1)] * 5),
             "brake": SignalInput(control_points=[(0, 1)] * 5),
         },
+        seed=12345
 )    
     
     
